@@ -14,11 +14,16 @@ import { defaultLocale, locales, siteTitle, siteUrl } from "./site.config";
 // https://astro.build/config
 export default defineConfig({
 	site: siteUrl,
+	image: {
+		service: {
+			entrypoint: 'astro/assets/services/noop',
+		},
+	},
 	output: "hybrid",
 	adapter: cloudflare({
-		imageService: "compile",
+		imageService: "passthrough",
 		experimental: {
-			manualChunks: ["sharp"],
+			// manualChunks: ["sharp"], // Eliminamos la dependencia de Sharp
 		},
 	}),
 	compressHTML: true,
